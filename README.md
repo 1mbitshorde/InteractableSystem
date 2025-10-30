@@ -1,6 +1,6 @@
-# [PackageName]
+# Interactable System
 
-[...]
+System for generic Gameplay Interactions.
 
 ## How To Use
 
