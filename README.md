@@ -4,7 +4,7 @@ System for generic Gameplay Interactions.
 
 ## How To Use
 
-Create [IInteractable](/Runtime/IInteractable.cs) implementations and use [Interactor](/Runtime/Interactor.cs) component to interact with.
+Create a [IInteractable](/Runtime/IInteractable.cs) implementations and use [Interactor](/Runtime/Interactor.cs) component to interact with.
 
 ### Using Interactor
 
@@ -18,7 +18,7 @@ Create a component implementing `IInteractable`.
 
 Alternatively, if you want to quickly prototype, use the [UnityEventInteractable](/Runtime/UnityEventInteractable.cs) component and set its Unity Events:
 
-![Unity Event Interactable](/Docs~/InterUnityEventInteractableactor.png).
+![Unity Event Interactable](/Docs~/UnityEventInteractable.png).
 
 You'll receive callbacks when `Interactor` gets close.
 
