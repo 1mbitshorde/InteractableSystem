@@ -31,9 +31,9 @@ namespace OneM.InteractableSystem
         void ShowInteractionFail();
 
         /// <summary>
-        /// Set this object availability to be interacted.
+        /// Change this object availability to be interacted.
         /// </summary>
         /// <param name="isAvailable">Whether is available.</param>
-        void SetAvailability(bool isAvailable);
+        void ChangeAvailability(bool isAvailable);
     }
 }
