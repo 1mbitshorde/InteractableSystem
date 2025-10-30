@@ -4,7 +4,23 @@ System for generic Gameplay Interactions.
 
 ## How To Use
 
-### Using [...]
+Create [IInteractable](/Runtime/IInteractable.cs) implementations and use [Interactor](/Runtime/Interactor.cs) component to interact with.
+
+### Using Interactor
+
+Attach [Interactor](/Runtime/Interactor.cs) inside your Player or any other object able to interact with [IInteractable](/Runtime/IInteractable.cs) implementations:
+
+![Interactor](/Docs~/Interactor.png)
+
+### Using IInteractable implementations
+
+Create a component implementing `IInteractable`. 
+
+Alternatively, if you want to quickly prototype, use the [UnityEventInteractable](/Runtime/UnityEventInteractable.cs) component and set its Unity Events:
+
+![Unity Event Interactable](/Docs~/InterUnityEventInteractableactor.png).
+
+You'll receive callbacks when `Interactor` gets close.
 
 ## Installation
 
