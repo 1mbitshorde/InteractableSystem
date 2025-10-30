@@ -4,8 +4,12 @@
   "version": "0.1.0",
   "unity": "6000.1",
   "description": "This package contains generic Gameplay scripts for Interactions.",
-  "keywords": [ "Interactor" ],
-  "dependencies": {},
+  "keywords": [
+    "Interactor"
+  ],
+  "dependencies": {
+    "com.actioncode.shapes": "1.2.0"
+  },
   "homepage": "https://github.com/1mbitshorde/InteractableSystem#readme",
   "repository": {
     "type": "git",
