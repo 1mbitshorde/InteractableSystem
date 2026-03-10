@@ -7,7 +7,7 @@ namespace OneM.InteractableSystem
     /// Low coupling implementation of <see cref="ICollisionable"/> using <see cref="UnityEvent"/>.
     /// </summary>
     /// <remarks>
-    /// Use this component to quickly create a Collisionable instances reacting when 
+    /// Use this component to quickly create a Collisionable instance reacting when 
     /// <see cref="AbstractInteractor{T}"/> implementations detect collisions.
     /// </remarks>
     [DisallowMultipleComponent]

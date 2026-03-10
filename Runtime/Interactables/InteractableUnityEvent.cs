@@ -7,10 +7,11 @@ namespace OneM.InteractableSystem
     /// Low coupling implementation of <see cref="IInteractable"/> using <see cref="UnityEvent"/>.
     /// </summary>
     /// <remarks>
-    /// Use this component to quickly create an Interactable instance.
+    /// Use this component to quickly create an Interactable instance reacting when 
+    /// <see cref="AbstractInteractor{T}"/> implementations detect collisions.
     /// </remarks>
     [DisallowMultipleComponent]
-    public sealed class UnityEventInteractable : MonoBehaviour, IInteractable
+    public sealed class InteractableUnityEvent : MonoBehaviour, IInteractable
     {
         /// <summary>
         /// Event fired when interacted with this object.
