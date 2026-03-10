@@ -37,6 +37,13 @@ namespace OneM.InteractableSystem
         private void OnEnable() => Initialize();
         private void Update() => UpdateCollisions();
 
+        public bool TryGetCollisionable<C>(int index, out C collisionable) where C : ICollisionable
+        {
+            var hasCollisionable = index < collisionables.Count;
+            collisionable = (C)(hasCollisionable ? collisionables[index] : null);
+            return hasCollisionable;
+        }
+
         protected virtual void SetupCollider()
         {
             Collider = GetComponent<T>();
