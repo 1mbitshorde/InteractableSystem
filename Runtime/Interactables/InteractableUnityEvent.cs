@@ -19,16 +19,19 @@ namespace OneM.InteractableSystem
         /// <summary>
         /// Event fired when interacted with this object.
         /// </summary>
+        [Header("EVENTS")]
         public UnityEvent OnInteracted;
 
         /// <summary>
         /// Event fired when this object availability is changed.
         /// </summary>
+        [Space]
         public UnityEvent<bool> OnAvailabilityChanged;
 
         /// <summary>
         /// Event fired when interacted with this object fails.
         /// </summary>
+        [Space]
         public UnityEvent OnInteractionFailChanged;
 
         private void Reset() => Collider = GetComponent<Collider>();
