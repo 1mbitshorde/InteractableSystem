@@ -4,11 +4,11 @@ System for generic Gameplay Interactions.
 
 ## How To Use
 
-Create a [IInteractable](/Runtime/IInteractable.cs) implementations and use any [AbstractInteractor implementation](/Runtime/Interactors) to interact with.
+Create a [IInteractable](/Runtime/Interactables/IInteractable.cs) implementations and use any [AbstractInteractor implementation](/Runtime/Interactors) to interact with.
 
 ### Using an Interactor
 
-Attach a [BoxInteractor](/Runtime/Interactors/BoxInteractor.cs) or a [SphereInteractor](/Runtime/Interactors/SphereInteractor.cs) inside your Player or any other object able to interact with [IInteractable](/Runtime/IInteractable.cs) implementations:
+Attach a [BoxInteractor](/Runtime/Interactors/BoxInteractor.cs) or a [SphereInteractor](/Runtime/Interactors/SphereInteractor.cs) inside your Player or any other object able to interact with [IInteractable](/Runtime/Interactables/IInteractable.cs) implementations:
 
 ![Interactor](/Docs~/SphereInteractor.png)
 
@@ -20,7 +20,7 @@ Alternatively, if you want to quickly prototype, use the [InteractableUnityEvent
 
 ![Interactable Unity Event ](/Docs~/InteractableUnityEvent.png).
 
-You'll receive callbacks when an Interactor gets close.
+You'll receive callbacks when an Interactor gets close or interacts.
 
 ## Installation
 
