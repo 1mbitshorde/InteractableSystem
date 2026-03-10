@@ -7,7 +7,8 @@ namespace OneM.InteractableSystem
     /// Low coupling implementation of <see cref="ICollisionable"/> using <see cref="UnityEvent"/>.
     /// </summary>
     /// <remarks>
-    /// Use this component to quickly create a Collisionable instance.
+    /// Use this component to quickly create a Collisionable instances reacting when 
+    /// <see cref="AbstractInteractor{T}"/> implementations detect collisions.
     /// </remarks>
     [DisallowMultipleComponent]
     public sealed class CollisionableUnityEvent : MonoBehaviour, ICollisionable
@@ -24,6 +25,8 @@ namespace OneM.InteractableSystem
         /// Event fired when exited the collision using the given interactor.
         /// </summary>
         public UnityEvent<Transform> OnCollisionExited;
+
+        private void Reset() => Collider = GetComponent<Collider>();
 
         public void EnterCollision(Transform interactor) => OnCollisionEntered?.Invoke(interactor);
         public void ExitCollision(Transform interactor) => OnCollisionExited?.Invoke(interactor);
