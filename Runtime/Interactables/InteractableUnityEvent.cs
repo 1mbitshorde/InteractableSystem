@@ -13,6 +13,9 @@ namespace OneM.InteractableSystem
     [DisallowMultipleComponent]
     public sealed class InteractableUnityEvent : MonoBehaviour, IInteractable
     {
+        [field: SerializeField]
+        public Collider Collider { get; private set; }
+
         /// <summary>
         /// Event fired when interacted with this object.
         /// </summary>
@@ -28,9 +31,13 @@ namespace OneM.InteractableSystem
         /// </summary>
         public UnityEvent OnInteractionFailChanged;
 
+        private void Reset() => Collider = GetComponent<Collider>();
+
         public bool CanInteract() => enabled;
         public void Interact() => OnInteracted?.Invoke();
         public void ShowInteractionFail() => OnInteractionFailChanged?.Invoke();
         public void ChangeAvailability(bool isAvailable) => OnAvailabilityChanged?.Invoke(isAvailable);
+        public void EnterCollision(Transform interactor) => ChangeAvailability(true);
+        public void ExitCollision(Transform interactor) => ChangeAvailability(false);
     }
 }

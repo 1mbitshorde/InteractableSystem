@@ -3,7 +3,7 @@ namespace OneM.InteractableSystem
     /// <summary>
     /// Interface used on objects able to be interacted with.
     /// </summary>
-    public interface IInteractable
+    public interface IInteractable : ICollisionable
     {
         /// <summary>
         /// Whether can interact with this object.
