@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+- ICollisionable interface
+- BoxInteractor component
+
 ## [1.0.0] - 2025-10-30
 ### Added
 - UnityEventInteractable component
