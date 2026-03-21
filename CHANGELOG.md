@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.1.0] - 2026-03-21
+### Changed
+- Update package dependencies to use 1M Bits Horde
+
 ## [2.0.0] - 2026-03-10
 ### Added
 - ICollisionable interface
@@ -32,6 +36,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/2.0.0...main
+[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/2.1.0...main
+[2.1.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.1.0/
 [2.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.0.0/
 [1.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/1.0.0/
