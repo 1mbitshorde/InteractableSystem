@@ -8,6 +8,14 @@ namespace OneM.InteractableSystem
     public interface ICollisionable
     {
         /// <summary>
+        /// The Game Object instance.
+        /// </summary>
+        /// <remarks>
+        /// It was named that way to maintain Unity compatibility.
+        /// </remarks>
+        public GameObject gameObject { get; }
+
+        /// <summary>
         /// The local Collider.
         /// </summary>
         public Collider Collider { get; }
@@ -16,7 +24,7 @@ namespace OneM.InteractableSystem
         /// Whether can collider.
         /// </summary>
         /// <returns></returns>
-        bool CanCollide();
+        public bool CanCollide();
 
         /// <summary>
         /// Enters the collision using the given interactor.
@@ -28,7 +36,7 @@ namespace OneM.InteractableSystem
         /// other system checking its collision.
         /// </para>
         /// </param>
-        void EnterCollision(Transform interactor);
+        public void EnterCollision(Transform interactor);
 
         /// <summary>
         /// Exits the collision using the given interactor.
@@ -36,6 +44,6 @@ namespace OneM.InteractableSystem
         /// <param name="interactor">
         /// <inheritdoc cref="EnterCollision(Transform)" path="/param[@name='interactor']"/>
         /// </param>
-        void ExitCollision(Transform interactor);
+        public void ExitCollision(Transform interactor);
     }
 }
