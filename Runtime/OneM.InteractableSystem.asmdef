@@ -1,9 +1,7 @@
 {
     "name": "OneM.InteractableSystem",
     "rootNamespace": "OneM.InteractableSystem",
-    "references": [
-        "GUID:b40514ddb87a6f1488fbddd18d66b949"
-    ],
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

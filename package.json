@@ -7,9 +7,6 @@
   "keywords": [
     "Interactor"
   ],
-  "dependencies": {
-    "com.1mbitshorde.shapes": "2.0.0"
-  },
   "homepage": "https://github.com/1mbitshorde/InteractableSystem#readme",
   "repository": {
     "type": "git",
