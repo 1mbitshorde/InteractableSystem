@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [3.1.0] - 2026-03-26
 ### Added
 - ICollisionable.gameObject field
 - Interactor OnCollisionEntered event
@@ -47,7 +49,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/3.0.0...main
+[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/3.1.0...main
+[3.1.0]: https://github.com/1mbitshorde/InteractableSystem/tree/3.1.0/
 [3.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/3.0.0/
 [2.1.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.1.0/
 [2.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.0.0/
