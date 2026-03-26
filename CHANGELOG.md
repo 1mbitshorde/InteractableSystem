@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Check if can collide before Interactor enter in collision with ICollecable instance
+- Check Interactor collisons only when game is not paused
 
 ## [2.1.0] - 2026-03-21
 ### Changed

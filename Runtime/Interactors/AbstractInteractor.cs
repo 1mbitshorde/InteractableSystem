@@ -35,7 +35,7 @@ namespace OneM.InteractableSystem
 
         private void Reset() => SetupCollider();
         private void OnEnable() => Initialize();
-        private void Update() => UpdateCollisions();
+        private void Update() => TryUpdateCollisions();
 
         public bool TryGetCollisionable<C>(int index, out C collisionable) where C : ICollisionable
         {
@@ -52,10 +52,18 @@ namespace OneM.InteractableSystem
 
         protected abstract int GetOverlappedHits(Bounds bounds);
 
+        private bool IsGameRunning() => Time.timeScale > 0f;
+
         private void Initialize()
         {
             buffer = new Collider[MaxCollisions];
             collisionables = new List<ICollisionable>((int)MaxCollisions);
+        }
+
+        private void TryUpdateCollisions()
+        {
+            // Don't check collisions is game is paused
+            if (IsGameRunning()) UpdateCollisions();
         }
 
         private void UpdateCollisions()
