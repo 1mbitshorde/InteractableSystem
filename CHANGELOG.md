@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-03-26
 ### Added
 - ICollisionable.CanCollide function
 
@@ -43,7 +44,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/2.1.0...main
+[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/3.0.0...main
+[3.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/3.0.0/
 [2.1.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.1.0/
 [2.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/2.0.0/
 [1.0.0]: https://github.com/1mbitshorde/InteractableSystem/tree/1.0.0/
