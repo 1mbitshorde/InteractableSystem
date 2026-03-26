@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - ICollisionable.gameObject field
+- Interactor OnCollisionEntered event
 
 ## [3.0.0] - 2026-03-26
 ### Added

@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace OneM.InteractableSystem
 {
@@ -21,6 +22,8 @@ namespace OneM.InteractableSystem
         [Space]
         [Tooltip("The layers used to cast collisions.")]
         public LayerMask Collisions;
+
+        public event Action<GameObject> OnCollisionEntered;
 
         public T Collider
         {
@@ -84,6 +87,8 @@ namespace OneM.InteractableSystem
                 if (hasCollision) continue;
 
                 collisionable.EnterCollision(transform);
+                OnCollisionEntered?.Invoke(collisionable.gameObject);
+
                 collisionables.Add(collisionable);
             }
         }
