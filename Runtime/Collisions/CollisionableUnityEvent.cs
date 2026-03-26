@@ -28,6 +28,7 @@ namespace OneM.InteractableSystem
 
         private void Reset() => Collider = GetComponent<Collider>();
 
+        public bool CanCollide() => enabled;
         public void EnterCollision(Transform interactor) => OnCollisionEntered?.Invoke(interactor);
         public void ExitCollision(Transform interactor) => OnCollisionExited?.Invoke(interactor);
     }

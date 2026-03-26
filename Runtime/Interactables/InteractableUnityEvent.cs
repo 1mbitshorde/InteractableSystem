@@ -37,6 +37,7 @@ namespace OneM.InteractableSystem
         private void Reset() => Collider = GetComponent<Collider>();
 
         public bool CanInteract() => enabled;
+        public bool CanCollide() => CanInteract();
         public void Interact() => OnInteracted?.Invoke();
         public void ShowInteractionFail() => OnInteractionFailChanged?.Invoke();
         public void ChangeAvailability(bool isAvailable) => OnAvailabilityChanged?.Invoke(isAvailable);

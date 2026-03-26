@@ -13,6 +13,12 @@ namespace OneM.InteractableSystem
         public Collider Collider { get; }
 
         /// <summary>
+        /// Whether can collider.
+        /// </summary>
+        /// <returns></returns>
+        bool CanCollide();
+
+        /// <summary>
         /// Enters the collision using the given interactor.
         /// </summary>
         /// <param name="interactor">

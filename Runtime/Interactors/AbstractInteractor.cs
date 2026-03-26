@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace OneM.InteractableSystem
 {
@@ -69,7 +69,8 @@ namespace OneM.InteractableSystem
                 if (collider == null) continue;
 
                 var hasCollisionable = collider.transform.TryGetComponent(out ICollisionable collisionable);
-                if (!hasCollisionable) continue;
+                var invalidCollisionable = !hasCollisionable || !collisionable.CanCollide();
+                if (invalidCollisionable) continue;
 
                 var hasCollision = collisionables.Contains(collisionable);
                 if (hasCollision) continue;
