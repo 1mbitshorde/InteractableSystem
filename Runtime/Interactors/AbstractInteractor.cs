@@ -53,7 +53,7 @@ namespace OneM.InteractableSystem
             Collider.isTrigger = true;
         }
 
-        protected abstract int GetOverlappedHits(Bounds bounds);
+        protected abstract int OverlapCollider(Bounds bounds);
 
         private bool IsGameRunning() => Time.timeScale > 0f;
 
@@ -71,9 +71,9 @@ namespace OneM.InteractableSystem
 
         private void UpdateCollisions()
         {
-            CheckExitCollisions();
+            var hitCount = OverlapCollider(Bounds);
+            CheckExitCollisions(hitCount);
 
-            var hitCount = GetOverlappedHits(Bounds);
             for (int i = 0; i < hitCount; i++)
             {
                 var collider = buffer[i];
@@ -93,33 +93,26 @@ namespace OneM.InteractableSystem
             }
         }
 
-        private void CheckExitCollisions()
+        private void CheckExitCollisions(int hitCount)
         {
             for (int i = collisionables.Count - 1; i >= 0; i--)
             {
                 var item = collisionables[i];
                 var collider = item.Collider;
-                var isColliding = IsColliding(Collider, collider);
-                if (isColliding) continue;
+                if (HasBufferCollider(collider, hitCount)) continue;
 
                 item.ExitCollision(transform);
                 collisionables.RemoveAt(i);
             }
         }
 
-        private static bool IsColliding(Collider colliderA, Collider colliderB)
+        private bool HasBufferCollider(Collider collider, int hitCount)
         {
-            if (colliderB == null || colliderB == colliderA) return false;
-            return Physics.ComputePenetration(
-                colliderA,
-                colliderA.transform.position,
-                colliderA.transform.rotation,
-                colliderB,
-                colliderB.transform.position,
-                colliderB.transform.rotation,
-                out Vector3 _,
-                out float __
-            );
+            for (int i = 0; i < hitCount; i++)
+            {
+                if (buffer[i] == collider) return true;
+            }
+            return false;
         }
     }
 }

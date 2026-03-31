@@ -9,7 +9,7 @@ namespace OneM.InteractableSystem
     [RequireComponent(typeof(SphereCollider))]
     public sealed class SphereInteractor : AbstractInteractor<SphereCollider>
     {
-        protected override int GetOverlappedHits(Bounds bounds) => Physics.OverlapSphereNonAlloc(
+        protected override int OverlapCollider(Bounds bounds) => Physics.OverlapSphereNonAlloc(
             bounds.center,
             Collider.radius,
             buffer,
