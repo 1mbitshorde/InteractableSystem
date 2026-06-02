@@ -55,7 +55,7 @@ namespace OneM.InteractableSystem
 
         protected abstract int OverlapCollider(Bounds bounds);
 
-        private bool IsGameRunning() => Time.timeScale > 0f;
+        public static bool IsGameRunning() => Time.timeScale > 0f;
 
         private void Initialize()
         {

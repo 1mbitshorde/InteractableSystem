@@ -3,7 +3,7 @@ using UnityEngine;
 namespace OneM.InteractableSystem
 {
     /// <summary>
-    /// Sphere interactor with <see cref="ICollisionable"/> interfaces.
+    /// Box interactor with <see cref="ICollisionable"/> interfaces.
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(BoxCollider))]
