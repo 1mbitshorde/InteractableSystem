@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace OneM.InteractableSystem
 {
     /// <summary>
@@ -14,16 +16,18 @@ namespace OneM.InteractableSystem
         /// <summary>
         /// Tries to interact with this object if possible. Shows an interaction fail if not.
         /// </summary>
-        void TryInteract()
+        /// <param name="interactor">The object interacting.</param>
+        void TryInteract(Transform interactor)
         {
-            if (CanInteract()) Interact();
+            if (CanInteract()) Interact(interactor);
             else ShowInteractionFail();
         }
 
         /// <summary>
         /// Interacts with this object.
         /// </summary>
-        void Interact();
+        /// <param name="interactor">The object interacting</param>
+        void Interact(Transform interactor);
 
         /// <summary>
         /// Shows an interaction fail message.

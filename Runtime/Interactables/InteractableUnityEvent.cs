@@ -20,7 +20,7 @@ namespace OneM.InteractableSystem
         /// Event fired when interacted with this object.
         /// </summary>
         [Header("EVENTS")]
-        public UnityEvent OnInteracted;
+        public UnityEvent<Transform> OnInteracted;
 
         /// <summary>
         /// Event fired when this object availability is changed.
@@ -32,14 +32,14 @@ namespace OneM.InteractableSystem
         /// Event fired when interacted with this object fails.
         /// </summary>
         [Space]
-        public UnityEvent OnInteractionFailChanged;
+        public UnityEvent OnInteractionFailed;
 
         private void Reset() => Collider = GetComponent<Collider>();
 
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
-        public void Interact() => OnInteracted?.Invoke();
-        public void ShowInteractionFail() => OnInteractionFailChanged?.Invoke();
+        public void Interact(Transform interactor) => OnInteracted?.Invoke(interactor);
+        public void ShowInteractionFail() => OnInteractionFailed?.Invoke();
         public void ChangeAvailability(bool isAvailable) => OnAvailabilityChanged?.Invoke(isAvailable);
         public void EnterCollision(Transform interactor) => ChangeAvailability(true);
         public void ExitCollision(Transform interactor) => ChangeAvailability(false);
