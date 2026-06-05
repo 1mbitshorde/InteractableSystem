@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Changed
 - Add interactor param into IInteractable.Interact function
+- Rename InteractableUnityEvent -> InteractableHandler
 
 ## [3.2.0] - 2026-06-02
 ### Added
