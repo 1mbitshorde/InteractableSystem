@@ -33,10 +33,8 @@ namespace OneM.InteractableSystem
         private void HandleCollisionEntered(GameObject instance)
         {
             var hasCollisionable = TryGetCollisionable(instance, out var collisionable);
-            var invalidCollisionable = !hasCollisionable || !collisionable.CanCollide();
-            if (invalidCollisionable) return;
-
-            collisionable.EnterCollision(transform);
+            var validCollisionable = hasCollisionable && collisionable.CanCollide();
+            if (validCollisionable) collisionable.EnterCollision(transform);
         }
 
         private void HandleCollisionExited(GameObject instance)
