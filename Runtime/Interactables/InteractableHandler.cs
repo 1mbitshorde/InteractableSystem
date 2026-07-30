@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -24,12 +25,23 @@ namespace OneM.InteractableSystem
         [Tooltip("Event fired when interacted with this object and it fails.")]
         public UnityEvent OnInteractionFailed;
 
+        /// <summary>
+        /// Event fired when any object availability is changed. 
+        /// Use it to show the Interaction Input based on the given instance.
+        /// </summary>
+        public static event Action<bool, GameObject> OnAnyAvailabilityChanged;
+
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
         public void Interact(Transform interactor) => OnInteracted?.Invoke(interactor);
         public void ShowInteractionFail() => OnInteractionFailed?.Invoke();
-        public void ChangeAvailability(bool isAvailable) => OnAvailabilityChanged?.Invoke(isAvailable);
         public void EnterCollision(Transform _) => ChangeAvailability(true);
         public void ExitCollision(Transform _) => ChangeAvailability(false);
+
+        public void ChangeAvailability(bool isAvailable)
+        {
+            OnAvailabilityChanged?.Invoke(isAvailable);
+            OnAnyAvailabilityChanged?.Invoke(isAvailable, gameObject);
+        }
     }
 }
