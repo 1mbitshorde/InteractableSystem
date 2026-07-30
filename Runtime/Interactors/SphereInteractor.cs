@@ -9,6 +9,7 @@ namespace OneM.InteractableSystem
     [RequireComponent(typeof(SphereCollider))]
     public sealed class SphereInteractor : AbstractInteractor
     {
+        [Space]
         [SerializeField] private SphereCollider sphereCollider;
 
         protected override void FindCollider() => sphereCollider = GetComponent<SphereCollider>();

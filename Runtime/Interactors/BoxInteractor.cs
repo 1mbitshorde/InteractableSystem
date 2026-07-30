@@ -9,6 +9,7 @@ namespace OneM.InteractableSystem
     [RequireComponent(typeof(BoxCollider))]
     public sealed class BoxInteractor : AbstractInteractor
     {
+        [Space]
         [SerializeField] private BoxCollider boxCollider;
 
         protected override void FindCollider() => boxCollider = GetComponent<BoxCollider>();

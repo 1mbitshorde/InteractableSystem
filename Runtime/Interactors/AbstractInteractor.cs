@@ -5,10 +5,10 @@ namespace OneM.InteractableSystem
 {
     public abstract class AbstractInteractor : MonoBehaviour
     {
-        [Tooltip("The layers used to cast collisions.")]
-        public LayerMask Collisions;
         [Tooltip("Specifies whether should hit Triggers.")]
         public QueryTriggerInteraction TriggerInteraction = QueryTriggerInteraction.Collide;
+        [Tooltip("The layers used to cast collisions.")]
+        public LayerMask Collisions;
 
         /// <summary>
         /// Event fired when entering a collision with a GameObject.
@@ -42,9 +42,11 @@ namespace OneM.InteractableSystem
 
         private void Update() => TryUpdateCollisions();
 
-        public bool TryGetCollidingComponent<C>(out C component)
+        public T GetCollidingComponent<T>() => CollidingInstance ? CollidingInstance.GetComponent<T>() : default;
+
+        public bool TryGetCollidingComponent<T>(out T component)
         {
-            component = CollidingInstance ? CollidingInstance.GetComponent<C>() : default;
+            component = GetCollidingComponent<T>();
             return component != null;
         }
 
