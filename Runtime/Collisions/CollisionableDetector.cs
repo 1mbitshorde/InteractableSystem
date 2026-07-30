@@ -39,6 +39,9 @@ namespace OneM.InteractableSystem
 
         private void HandleCollisionExited(GameObject instance)
         {
+            // Instance may be deleted by Gameplay
+            if (instance == null) return;
+
             var hasCollisionable = TryGetCollisionable(instance, out var collisionable);
             if (hasCollisionable) collisionable.ExitCollision(transform);
         }

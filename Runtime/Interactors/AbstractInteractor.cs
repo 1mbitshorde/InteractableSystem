@@ -42,7 +42,14 @@ namespace OneM.InteractableSystem
 
         private void Update() => TryUpdateCollisions();
 
-        public T GetCollidingComponent<T>() => CollidingInstance ? CollidingInstance.GetComponent<T>() : default;
+        public T GetCollidingComponent<T>()
+        {
+            if (CollidingInstance == null) return default;
+
+            var component = CollidingInstance.GetComponentInChildren<T>();
+            if (component != null) return component;
+            return CollidingInstance.GetComponentInParent<T>();
+        }
 
         public bool TryGetCollidingComponent<T>(out T component)
         {
