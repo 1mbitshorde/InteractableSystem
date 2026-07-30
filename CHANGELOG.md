@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - InteractableHandler.OnAnyAvailabilityChanged event
 
+### Removed
+- SimpleInteractor
+
 ## [4.1.0] - 2026-06-23
 ### Added
 - CollisionableEvent component
