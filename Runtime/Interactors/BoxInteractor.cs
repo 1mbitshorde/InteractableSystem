@@ -7,15 +7,24 @@ namespace OneM.InteractableSystem
     /// </summary>
     [DisallowMultipleComponent]
     [RequireComponent(typeof(BoxCollider))]
-    public sealed class BoxInteractor : AbstractInteractor<BoxCollider>
+    public sealed class BoxInteractor : AbstractInteractor
     {
-        protected override int OverlapCollider(Bounds bounds) => Physics.OverlapBoxNonAlloc(
-            bounds.center,
-            bounds.extents,
-            buffer,
-            transform.rotation,
-            Collisions,
-            TriggerInteraction
-        );
+        [SerializeField] private BoxCollider boxCollider;
+
+        protected override void FindCollider() => boxCollider = GetComponent<BoxCollider>();
+        protected override Collider GetCollider() => boxCollider;
+
+        protected override int GetHitCount()
+        {
+            var bounds = GetCollider().bounds;
+            return Physics.OverlapBoxNonAlloc(
+                bounds.center,
+                bounds.extents,
+                buffer,
+                transform.rotation,
+                Collisions,
+                TriggerInteraction
+            );
+        }
     }
 }
