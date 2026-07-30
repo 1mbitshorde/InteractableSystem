@@ -1,36 +1,30 @@
 using OneM.Attributes;
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace OneM.InteractableSystem
 {
     /// <summary>
-    /// Triggers <see cref="OnEntered"/> and <see cref="OnExited"/> events 
+    /// Triggers <see cref="OnEntered"/> and <see cref="OnExited"/> Unity Events 
     /// when a GameObject with the given tag enters/exits the area.
     /// </summary>
     [SelectionBase]
     [DisallowMultipleComponent]
-    public sealed class AreaTrigger : MonoBehaviour
+    public sealed class AreaTriggerUnityEvent : MonoBehaviour
     {
         [Tag, Tooltip("The Tag to detect enter/exit from the Trigger Area.")]
         public string _tag = "Player";
+
+        [Space]
+        [Tooltip("Event fired when the entering in the trigger area.")]
+        public UnityEvent<GameObject> OnEntered;
+        [Tooltip("Event fired when exiting from the trigger area.")]
+        public UnityEvent<GameObject> OnExited;
 
         /// <summary>
         /// The instance interacting with this area. It will be set only when interaction is happening.
         /// </summary>
         public GameObject Interactor { get; private set; }
-
-        /// <summary>
-        /// Event fired when the entering in the trigger area. 
-        /// Check <see cref="Interactor"/> to know who is entering the area.
-        /// </summary>
-        public event Action OnEntered;
-
-        /// <summary>
-        /// Event fired when exiting from the trigger area.
-        /// Check <see cref="Interactor"/> to know who is exiting the area.
-        /// </summary>
-        public event Action OnExited;
 
         private void Reset() => CheckCollider();
 
@@ -55,12 +49,12 @@ namespace OneM.InteractableSystem
         private void Enter(GameObject interactor)
         {
             Interactor = interactor;
-            OnEntered?.Invoke();
+            OnEntered?.Invoke(Interactor);
         }
 
         private void Exit()
         {
-            OnExited?.Invoke();
+            OnExited?.Invoke(Interactor);
             Interactor = null;
         }
     }
