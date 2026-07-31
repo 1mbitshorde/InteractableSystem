@@ -16,6 +16,8 @@ namespace OneM.InteractableSystem
     {
         [field: SerializeField]
         public Collider Collider { get; private set; }
+        [field: SerializeField, Tooltip("The interaction name to use when filtering interactions.")]
+        public string InteractionName { get; set; } = "Interact";
 
         [Header("EVENTS")]
         [Tooltip("Event fired when this object availability is changed. Use it to show the Interaction Input.")]
@@ -27,9 +29,9 @@ namespace OneM.InteractableSystem
 
         /// <summary>
         /// Event fired when any object availability is changed. 
-        /// Use it to show the Interaction Input based on the given instance.
+        /// Use it to show the Interaction Input based on the Interaction Name or the GameObject instance.
         /// </summary>
-        public static event Action<bool, GameObject> OnAnyAvailabilityChanged;
+        public static event Action<bool, string, GameObject> OnAnyAvailabilityChanged;
 
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
@@ -41,7 +43,7 @@ namespace OneM.InteractableSystem
         public void ChangeAvailability(bool isAvailable)
         {
             OnAvailabilityChanged?.Invoke(isAvailable);
-            OnAnyAvailabilityChanged?.Invoke(isAvailable, gameObject);
+            OnAnyAvailabilityChanged?.Invoke(isAvailable, InteractionName, gameObject);
         }
     }
 }
