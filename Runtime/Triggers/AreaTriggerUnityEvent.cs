@@ -10,10 +10,10 @@ namespace OneM.InteractableSystem
     /// </summary>
     [SelectionBase]
     [DisallowMultipleComponent]
-    public sealed class AreaTriggerUnityEvent : MonoBehaviour
+    public class AreaTriggerUnityEvent : MonoBehaviour
     {
         [Tag, Tooltip("The Tag to detect enter/exit from the Trigger Area.")]
-        public string _tag = "Player";
+        public string Tag = "Player";
 
         [Space]
         [Tooltip("Event fired when the entering in the trigger area.")]
@@ -30,12 +30,12 @@ namespace OneM.InteractableSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(_tag)) Enter(other.gameObject);
+            if (other.CompareTag(Tag)) Enter(other.gameObject);
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag(_tag)) Exit();
+            if (other.CompareTag(Tag)) Exit();
         }
 
         public void SetActive(bool isEnabled) => gameObject.SetActive(isEnabled);
@@ -46,13 +46,13 @@ namespace OneM.InteractableSystem
             else Debug.LogWarning("Add any Collider component.");
         }
 
-        private void Enter(GameObject interactor)
+        protected virtual void Enter(GameObject interactor)
         {
             Interactor = interactor;
             OnEntered?.Invoke(Interactor);
         }
 
-        private void Exit()
+        protected virtual void Exit()
         {
             OnExited?.Invoke(Interactor);
             Interactor = null;
