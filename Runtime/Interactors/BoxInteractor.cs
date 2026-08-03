@@ -15,7 +15,7 @@ namespace OneM.InteractableSystem
         protected override void FindCollider() => boxCollider = GetComponent<BoxCollider>();
         protected override Collider GetCollider() => boxCollider;
 
-        protected override int GetHitCount()
+        protected override int GetHits()
         {
             var bounds = GetCollider().bounds;
             return Physics.OverlapBoxNonAlloc(

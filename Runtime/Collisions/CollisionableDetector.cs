@@ -32,27 +32,17 @@ namespace OneM.InteractableSystem
 
         private void HandleCollisionEntered(GameObject instance)
         {
-            var hasCollisionable = TryGetCollisionable(instance, out var collisionable);
+            var hasCollisionable = AbstractInteractor.TryGetCollidingComponent(instance, out ICollisionable collisionable);
             var validCollisionable = hasCollisionable && collisionable.CanCollide();
             if (validCollisionable) collisionable.EnterCollision(transform);
         }
 
         private void HandleCollisionExited(GameObject instance)
         {
-            // Instance may be deleted by Gameplay
-            if (instance == null) return;
+            if (instance == null) return; // The instance may be destroyed during gameplay
 
-            var hasCollisionable = TryGetCollisionable(instance, out var collisionable);
+            var hasCollisionable = AbstractInteractor.TryGetCollidingComponent(instance, out ICollisionable collisionable);
             if (hasCollisionable) collisionable.ExitCollision(transform);
-        }
-
-        private static bool TryGetCollisionable(GameObject instance, out ICollisionable collisionable)
-        {
-            collisionable = instance.GetComponentInChildren<ICollisionable>();
-            if (collisionable != null) return true;
-
-            collisionable = instance.GetComponentInParent<ICollisionable>();
-            return collisionable != null;
         }
     }
 }

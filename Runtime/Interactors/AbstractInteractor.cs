@@ -1,14 +1,22 @@
+using OneM.Attributes;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace OneM.InteractableSystem
 {
     public abstract class AbstractInteractor : MonoBehaviour
     {
+        [SerializeField, Tooltip("The maximum collisions allowed."), Min(1), DisableInPlayMode]
+        private uint maxCollisions = 1;
         [Tooltip("Specifies whether should hit Triggers.")]
         public QueryTriggerInteraction TriggerInteraction = QueryTriggerInteraction.Collide;
         [Tooltip("The layers used to cast collisions.")]
         public LayerMask Collisions;
+
+        [Header("RUNTIME")]
+        [SerializeField, Readonly]
+        private List<Collider> collidingInstances = new();
 
         /// <summary>
         /// Event fired when entering a collision with a GameObject.
@@ -16,23 +24,18 @@ namespace OneM.InteractableSystem
         public event Action<GameObject> OnCollisionEntered;
 
         /// <summary>
-        /// Event fired when exiting a collision with a GameObject.
+        /// Event fired when exiting a collision with a GameObject. 
+        /// The given GameObject may be null if it was destroyed during gameplay.
         /// </summary>
         public event Action<GameObject> OnCollisionExited;
 
         /// <summary>
         /// Event fired when toggling a collision with a GameObject, providing the collision state.
+        /// The given GameObject may be null if it was destroyed during gameplay.
         /// </summary>
         public event Action<GameObject, bool> OnCollisionToggled;
 
-        /// <summary>
-        /// The Colliding instance. Can be null.
-        /// </summary>
-        public GameObject CollidingInstance { get; private set; }
-
-        private bool wasCollision;
-        private const uint maxCollisions = 1;
-        protected readonly Collider[] buffer = new Collider[maxCollisions];
+        protected Collider[] buffer = new Collider[0];
 
         private void Reset()
         {
@@ -40,16 +43,16 @@ namespace OneM.InteractableSystem
             SetupCollider();
         }
 
+        private void Awake() => SetMaxCollisions(maxCollisions);
         private void Update() => TryUpdateCollisions();
 
-        public T GetCollidingComponent<T>()
+        public void SetMaxCollisions(uint maxCollisions)
         {
-            if (CollidingInstance == null) return default;
-
-            var component = CollidingInstance.GetComponentInChildren<T>();
-            if (component != null) return component;
-            return CollidingInstance.GetComponentInParent<T>();
+            this.maxCollisions = maxCollisions;
+            buffer = new Collider[maxCollisions];
         }
+
+        public static bool IsGameRunning() => Time.timeScale > 0f;
 
         public bool TryGetCollidingComponent<T>(out T component)
         {
@@ -57,11 +60,37 @@ namespace OneM.InteractableSystem
             return component != null;
         }
 
-        protected abstract int GetHitCount();
+        public T GetCollidingComponent<T>()
+        {
+            foreach (var colision in collidingInstances)
+            {
+                var component = GetCollidingComponent<T>(colision);
+                if (component != null) return component;
+            }
+            return default;
+        }
+
+        public static bool TryGetCollidingComponent<T>(GameObject instance, out T component)
+        {
+            component = GetCollidingComponent<T>(instance);
+            return component != null;
+        }
+
+        public static T GetCollidingComponent<T>(Collider collider) =>
+            collider ? GetCollidingComponent<T>(collider.gameObject) : default;
+
+        public static T GetCollidingComponent<T>(GameObject instance)
+        {
+            if (instance == null) return default;
+
+            var component = instance.GetComponentInChildren<T>();
+            if (component != null) return component;
+            return instance.GetComponentInParent<T>();
+        }
+
+        protected abstract int GetHits();
         protected abstract void FindCollider();
         protected abstract Collider GetCollider();
-
-        public static bool IsGameRunning() => Time.timeScale > 0f;
 
         private void SetupCollider() => GetCollider().isTrigger = true;
 
@@ -73,29 +102,64 @@ namespace OneM.InteractableSystem
 
         private void UpdateCollisions()
         {
-            var hitCount = GetHitCount();
-            var hasCollision = hitCount > 0;
-            var hasEnterCollision = hasCollision && !wasCollision;
-            var hasExitCollision = !hasCollision && wasCollision;
-
-            if (hasEnterCollision) EnterCollision();
-            if (hasExitCollision) ExitCollision();
-
-            wasCollision = hasCollision;
+            var hits = GetHits();
+            ExitCollisionsOutsideArea(hits);
+            EnterNewCollisions(hits);
         }
 
-        private void EnterCollision()
+        private void ExitCollisionsOutsideArea(int hits)
         {
-            CollidingInstance = buffer[0].gameObject;
-            OnCollisionEntered?.Invoke(CollidingInstance);
-            OnCollisionToggled?.Invoke(CollidingInstance, true);
+            for (var i = collidingInstances.Count - 1; i >= 0; i--)
+            {
+                var collider = collidingInstances[i];
+                var isOutside = collider == null || !IsColliding(collider, hits);
+                if (isOutside) ExitCollision(i);
+            }
         }
 
-        private void ExitCollision()
+        private void EnterNewCollisions(int hits)
         {
-            OnCollisionExited?.Invoke(CollidingInstance);
-            OnCollisionToggled?.Invoke(CollidingInstance, false);
-            CollidingInstance = null;
+            for (var i = 0; i < hits; i++)
+            {
+                var collision = buffer[i];
+                var isNew = !Contains(collidingInstances, collision);
+                if (isNew) EnterCollision(collision);
+            }
+        }
+
+        private void EnterCollision(Collider collider)
+        {
+            var instance = collider.gameObject;
+
+            OnCollisionEntered?.Invoke(instance);
+            OnCollisionToggled?.Invoke(instance, true);
+
+            collidingInstances.Add(collider);
+        }
+
+        private void ExitCollision(int index)
+        {
+            // Collider may be deleted by Gameplay
+            var hasInstance = collidingInstances[index] != null;
+            var instance = hasInstance ? collidingInstances[index].gameObject : null;
+
+            OnCollisionExited?.Invoke(instance);
+            OnCollisionToggled?.Invoke(instance, false);
+
+            collidingInstances.RemoveAt(index);
+        }
+
+        private bool IsColliding(Collider collider, int hits) => Contains(collidingInstances, collider, hits);
+
+        private static bool Contains(List<Collider> colliders, Collider collider) => Contains(colliders, collider, colliders.Count);
+
+        private static bool Contains(List<Collider> colliders, Collider collider, int size)
+        {
+            for (var i = 0; i < size; i++)
+            {
+                if (colliders[i] == collider) return true;
+            }
+            return false;
         }
     }
 }

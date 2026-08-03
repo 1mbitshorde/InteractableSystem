@@ -15,7 +15,7 @@ namespace OneM.InteractableSystem
         protected override void FindCollider() => sphereCollider = GetComponent<SphereCollider>();
         protected override Collider GetCollider() => sphereCollider;
 
-        protected override int GetHitCount()
+        protected override int GetHits()
         {
             var bounds = GetCollider().bounds;
             return Physics.OverlapSphereNonAlloc(
