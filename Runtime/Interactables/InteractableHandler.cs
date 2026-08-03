@@ -33,6 +33,8 @@ namespace OneM.InteractableSystem
         /// </summary>
         public static event Action<bool, string, GameObject> OnAnyAvailabilityChanged;
 
+        private void OnDisable() => ChangeAvailability(false);
+
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
         public void Interact(Transform interactor) => OnInteracted?.Invoke(interactor);
