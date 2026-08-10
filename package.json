@@ -1,7 +1,7 @@
 {
   "name": "com.1mbitshorde.interactable-system",
   "displayName": "1M Bits Horde-Interactable System",
-  "version": "5.2.0",
+  "version": "5.2.1",
   "unity": "6000.3",
   "description": "This package contains generic Gameplay scripts for Interactions.",
   "keywords": [
