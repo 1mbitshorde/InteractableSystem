@@ -33,7 +33,7 @@ namespace OneM.InteractableSystem
         /// </summary>
         public static event Action<bool, string, GameObject> OnAnyAvailabilityChanged;
 
-        private void OnDisable() => ChangeAvailability(false);
+        private void OnDestroy() => ChangeAnyAvailability(false);
 
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
@@ -45,7 +45,10 @@ namespace OneM.InteractableSystem
         public void ChangeAvailability(bool isAvailable)
         {
             OnAvailabilityChanged?.Invoke(isAvailable);
-            OnAnyAvailabilityChanged?.Invoke(isAvailable, InteractionName, gameObject);
+            ChangeAnyAvailability(isAvailable);
         }
+
+        private void ChangeAnyAvailability(bool isAvailable) =>
+            OnAnyAvailabilityChanged?.Invoke(isAvailable, InteractionName, gameObject);
     }
 }

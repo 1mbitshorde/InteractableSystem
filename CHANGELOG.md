@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+- Call OnAnyAvailabilityChanged when InteractableHandler is destroyed
+
 ## [5.2.0] - 2026-08-03
 ### Added
 - Max collisions into AbstractInteractor
