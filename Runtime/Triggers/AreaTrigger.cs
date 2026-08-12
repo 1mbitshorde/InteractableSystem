@@ -40,13 +40,13 @@ namespace OneM.InteractableSystem
         /// Global event fired when entering into any trigger area. 
         /// </summary>
         /// <remarks>The given GameObject is the trigger instance.</remarks>
-        public event Action<GameObject> OnAnyEntered;
+        public static event Action<GameObject> OnAnyEntered;
 
         /// <summary>
         /// Global event fired when exiting from any trigger area. 
         /// </summary>
         /// <remarks>The given GameObject is the trigger instance.</remarks>
-        public event Action<GameObject> OnAnyExited;
+        public static event Action<GameObject> OnAnyExited;
 
         private void Reset() => CheckCollider();
 
