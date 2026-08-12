@@ -21,16 +21,32 @@ namespace OneM.InteractableSystem
         public GameObject Interactor { get; private set; }
 
         /// <summary>
-        /// Event fired when the entering in the trigger area. 
-        /// Check <see cref="Interactor"/> to know who is entering the area.
+        /// Event fired when entering into the trigger area.
         /// </summary>
+        /// <remarks>
+        /// Check <see cref="Interactor"/> to know who is entering the area.
+        /// </remarks>
         public event Action OnEntered;
 
         /// <summary>
         /// Event fired when exiting from the trigger area.
-        /// Check <see cref="Interactor"/> to know who is exiting the area.
         /// </summary>
+        /// <remarks>
+        /// Check <see cref="Interactor"/> to know who is exiting the area.
+        /// </remarks>
         public event Action OnExited;
+
+        /// <summary>
+        /// Global event fired when entering into any trigger area. 
+        /// </summary>
+        /// <remarks>The given GameObject is the trigger instance.</remarks>
+        public event Action<GameObject> OnAnyEntered;
+
+        /// <summary>
+        /// Global event fired when exiting from any trigger area. 
+        /// </summary>
+        /// <remarks>The given GameObject is the trigger instance.</remarks>
+        public event Action<GameObject> OnAnyExited;
 
         private void Reset() => CheckCollider();
 
@@ -56,11 +72,13 @@ namespace OneM.InteractableSystem
         {
             Interactor = interactor;
             OnEntered?.Invoke();
+            OnAnyEntered?.Invoke(gameObject);
         }
 
         protected virtual void Exit()
         {
             OnExited?.Invoke();
+            OnAnyExited?.Invoke(gameObject);
             Interactor = null;
         }
     }
