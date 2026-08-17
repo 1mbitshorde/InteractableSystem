@@ -62,6 +62,8 @@ namespace OneM.InteractableSystem
 
         public void SetActive(bool isEnabled) => gameObject.SetActive(isEnabled);
 
+        public void ResetInteractor() => Interactor = null;
+
         private void CheckCollider()
         {
             if (TryGetComponent(out Collider collider)) collider.isTrigger = true;
@@ -70,6 +72,8 @@ namespace OneM.InteractableSystem
 
         protected virtual void Enter(GameObject interactor)
         {
+            if (Interactor == interactor) return;
+
             Interactor = interactor;
             OnEntered?.Invoke();
             OnAnyEntered?.Invoke(gameObject);
@@ -79,7 +83,7 @@ namespace OneM.InteractableSystem
         {
             OnExited?.Invoke();
             OnAnyExited?.Invoke(gameObject);
-            Interactor = null;
+            ResetInteractor();
         }
     }
 }
