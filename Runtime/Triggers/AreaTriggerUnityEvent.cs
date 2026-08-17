@@ -1,4 +1,3 @@
-using OneM.Attributes;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,52 +9,24 @@ namespace OneM.InteractableSystem
     /// </summary>
     [SelectionBase]
     [DisallowMultipleComponent]
-    public class AreaTriggerUnityEvent : MonoBehaviour
+    public class AreaTriggerUnityEvent : AreaTrigger
     {
-        [Tag, Tooltip("The Tag to detect enter/exit from the Trigger Area.")]
-        public string Tag = "Player";
-
         [Space]
-        [Tooltip("Event fired when the entering in the trigger area.")]
-        public UnityEvent<GameObject> OnEntered;
+        [Tooltip("Event fired when entering in the trigger area.")]
+        public UnityEvent<GameObject> OnInstanceEntered;
         [Tooltip("Event fired when exiting from the trigger area.")]
-        public UnityEvent<GameObject> OnExited;
+        public UnityEvent<GameObject> OnInstanceExited;
 
-        /// <summary>
-        /// The instance interacting with this area. It will be set only when interaction is happening.
-        /// </summary>
-        public GameObject Interactor { get; private set; }
-
-        private void Reset() => CheckCollider();
-
-        private void OnTriggerEnter(Collider other)
+        protected override void Enter(GameObject interactor)
         {
-            if (other.CompareTag(Tag)) Enter(other.gameObject);
+            base.Enter(interactor);
+            OnInstanceEntered?.Invoke(interactor);
         }
 
-        private void OnTriggerExit(Collider other)
+        protected override void Exit()
         {
-            if (other.CompareTag(Tag)) Exit();
-        }
-
-        public void SetActive(bool isEnabled) => gameObject.SetActive(isEnabled);
-
-        private void CheckCollider()
-        {
-            if (TryGetComponent(out Collider collider)) collider.isTrigger = true;
-            else Debug.LogWarning("Add any Collider component.");
-        }
-
-        protected virtual void Enter(GameObject interactor)
-        {
-            Interactor = interactor;
-            OnEntered?.Invoke(Interactor);
-        }
-
-        protected virtual void Exit()
-        {
-            OnExited?.Invoke(Interactor);
-            Interactor = null;
+            OnInstanceExited?.Invoke(Interactor);
+            base.Exit();
         }
     }
 }

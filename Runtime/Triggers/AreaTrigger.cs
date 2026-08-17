@@ -52,13 +52,15 @@ namespace OneM.InteractableSystem
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(Tag)) Enter(other.gameObject);
+            if (CanEnter(other)) Enter(other.gameObject);
         }
 
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag(Tag)) Exit();
         }
+
+        public bool CanEnter(Collider other) => other.CompareTag(Tag) && Interactor != other.gameObject;
 
         public void SetActive(bool isEnabled) => gameObject.SetActive(isEnabled);
 
@@ -72,8 +74,6 @@ namespace OneM.InteractableSystem
 
         protected virtual void Enter(GameObject interactor)
         {
-            if (Interactor == interactor) return;
-
             Interactor = interactor;
             OnEntered?.Invoke();
             OnAnyEntered?.Invoke(gameObject);
