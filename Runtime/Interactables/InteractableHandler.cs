@@ -33,11 +33,16 @@ namespace OneM.InteractableSystem
         /// </summary>
         public static event Action<bool, string, GameObject> OnAnyAvailabilityChanged;
 
+        /// <summary>
+        /// Event fired when interacted with any object and it success.
+        /// </summary>
+        public static event Action<GameObject, Transform> OnAnyInteracted;
+
         private void OnDestroy() => ChangeAnyAvailability(false);
 
         public bool CanInteract() => enabled;
         public bool CanCollide() => CanInteract();
-        public void Interact(Transform interactor) => OnInteracted?.Invoke(interactor);
+        public void Interact(Transform interactor) => InteractInternal(interactor);
         public void ShowInteractionFail() => OnInteractionFailed?.Invoke();
         public void EnterCollision(Transform _) => ChangeAvailability(true);
         public void ExitCollision(Transform _) => ChangeAvailability(false);
@@ -50,5 +55,11 @@ namespace OneM.InteractableSystem
 
         private void ChangeAnyAvailability(bool isAvailable) =>
             OnAnyAvailabilityChanged?.Invoke(isAvailable, InteractionName, gameObject);
+
+        private void InteractInternal(Transform interactor)
+        {
+            OnInteracted?.Invoke(interactor);
+            OnAnyInteracted?.Invoke(gameObject, interactor);
+        }
     }
 }
