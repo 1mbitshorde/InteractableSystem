@@ -1,7 +1,7 @@
 {
   "name": "com.1mbitshorde.interactable-system",
   "displayName": "1M Bits Horde-Interactable System",
-  "version": "5.4.0",
+  "version": "5.5.0",
   "unity": "6000.3",
   "description": "This package contains generic Gameplay scripts for Interactions.",
   "keywords": [
@@ -15,6 +15,6 @@
   "documentationUrl": "https://github.com/1mbitshorde/InteractableSystem#readme",
   "changelogUrl": "https://github.com/1mbitshorde/InteractableSystem/CHANGELOG.md",
   "dependencies": {
-    "com.1mbitshorde.attributes": "4.3.0"
+    "com.1mbitshorde.attributes": "5.0.0"
   }
 }

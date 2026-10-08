@@ -5,7 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Changed
+## [5.5.0] - 2026-10-08
+### Added
 - AreaTrigger.CheckInteractor function
 
 ## [5.4.0] - 2026-08-20
@@ -106,7 +107,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - gitignore
 - Initial commit
 
-[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/5.4.0...main
+[Unreleased]: https://github.com/1mbitshorde/InteractableSystem/compare/5.5.0...main
+[5.5.0]: https://github.com/1mbitshorde/InteractableSystem/tree/5.5.0/
 [5.4.0]: https://github.com/1mbitshorde/InteractableSystem/tree/5.4.0/
 [5.3.1]: https://github.com/1mbitshorde/InteractableSystem/tree/5.3.1/
 [5.3.0]: https://github.com/1mbitshorde/InteractableSystem/tree/5.3.0/
