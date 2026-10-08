@@ -66,6 +66,18 @@ namespace OneM.InteractableSystem
 
         public void ResetInteractor() => Interactor = null;
 
+        public void CheckInteractor()
+        {
+            if (Interactor == null) return;
+
+            var collider = GetComponent<Collider>();
+            var interactorCollider = Interactor.GetComponent<Collider>();
+            if (interactorCollider == null || collider == null) return;
+
+            var isOverlapping = collider.bounds.Intersects(interactorCollider.bounds);
+            if (!isOverlapping) OnTriggerExit(interactorCollider);
+        }
+
         private void CheckCollider()
         {
             if (TryGetComponent(out Collider collider)) collider.isTrigger = true;
